@@ -116,12 +116,11 @@ if prompt:
         	f"- Notes: {log['notes']}\n"
 	)
 
-reflection_context = ""
-if st.session_state.reflection:
-	reflection_context = """
-The user has chosen reflection mode. The user wants you to do a concise summary about their patterns, emotions, and gentle encouragement. Focus on the bigger picture of health rather than small metrics.
-"""
-
+	reflection_context = ""
+	if st.session_state.reflection:
+		reflection_context = """
+	The user has chosen reflection mode. The user wants you to do a concise summary about their patterns, emotions, and gentle encouragement. Focus on the bigger picture of health rather than small metrics.
+	"""
 
 	messages_for_model = [
 		{"role" : "system", "content" : system_prompt(mode) + reflection_context}, 
@@ -130,7 +129,7 @@ The user has chosen reflection mode. The user wants you to do a concise summary 
 	
 	]
 
-	with st.chat_messages("assistant"):
+	with st.chat_message("assistant"):
 		with st.spinner("Thinking..."):
 			response = client.chat.completions.create(
 				model = st.session_state.openai_model,
@@ -146,23 +145,24 @@ The user has chosen reflection mode. The user wants you to do a concise summary 
 			st.session_state.messages.append({"role": "assistant", "content": reply}),
 			st.session_state.reflection = False 
 
-if st.button("Reflection") and st.session_state.messages:
-	st.session_state.reflection = True
-	st.session_state.messages.append({"role" : "user", "content" : "Please give me a reflection summary."})
-	st.rerun()
+	if st.button("Reflection") and st.session_state.messages:
+		st.session_state.reflection = True
+		st.session_state.messages.append({"role" : "user", "content" : "Please give me a reflection summary."})
+		st.rerun()
 
-st.divider()
-col1, col2 = st.columns(2)
-with col1:
-	if checked_in_today:
+	st.divider()
+	col1, col2 = st.columns(2)
+	with col1:
+		if checked_in_today:
     		st.success("You already checked in today")
-	else:
+		else:
     		if st.button("Complete today"):
         		st.session_state.last_checkin_date = today
         		st.session_state.streak += 1
         		st.rerun()
-with col2:
-	if st.button("New day / reset chat"):
-		st.session_state.messages = []
-		st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
-	st.rerun()
+	with col2:
+		if st.button("New day / reset chat"):
+			st.session_state.messages = []
+			st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
+		st.rerun()
+
