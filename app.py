@@ -140,7 +140,6 @@ if prompt:
 			reply = response.choices[0].message.content
 			st.markdown(reply)
 
-
 			# save assistant response
 			st.session_state.messages.append({"role": "assistant", "content": reply}),
 			st.session_state.reflection = False 
@@ -158,13 +157,14 @@ if prompt:
 		else:
 			if st.button("Complete today"):
 				st.session_state.last_checkin_date = today
-        		st.session_state.streak += 1
+				st.session_state.streak += 1
         		st.rerun()
 	with col2:
 		if st.button("New day / reset chat"):
 			st.session_state.messages = []
 			st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
 			st.rerun()
+
 
 
 
