@@ -11,8 +11,6 @@ client = OpenAI(api_key=os.environ.get('DEEPSEEK_API_KEY'), base_url="https://ap
 if "openai_model" not in st.session_state:
     st.session_state.openai_model = "deepseek-chat"
 
-print(response.choices[0].message.content)
-
 if "messages" not in st.session_state:
 	st.session_state.messages = []
 if "diary" not in st.session_state:
@@ -167,6 +165,7 @@ if prompt:
 			st.session_state.messages = []
 			st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
 			st.rerun()
+
 
 
 
