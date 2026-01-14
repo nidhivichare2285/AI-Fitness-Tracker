@@ -8,14 +8,8 @@ st.caption("A health app designed to motivate, not shame you. No medical advice 
 
 client = OpenAI(api_key=os.environ.get('DEEPSEEK_API_KEY'), base_url="https://api.deepseek.com")
 
-response = client.chat.completions.create(
-    model="deepseek-chat",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant"},
-        {"role": "user", "content": "Hello"},
-    ],
-    stream=False
-)
+if "openai_model" not in st.session_state:
+    st.session_state.openai_model = "deepseek-chat"
 
 print(response.choices[0].message.content)
 
@@ -173,6 +167,7 @@ if prompt:
 			st.session_state.messages = []
 			st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
 			st.rerun()
+
 
 
 
