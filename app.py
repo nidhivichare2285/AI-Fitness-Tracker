@@ -152,17 +152,18 @@ if prompt:
 
 	st.divider()
 	col1, col2 = st.columns(2)
-	with col1:
-		if checked_in_today:
-    		st.success("You already checked in today")
+		with col1:
+			if checked_in_today:
+    			st.success("You already checked in today")
 		else:
     		if st.button("Complete today"):
         		st.session_state.last_checkin_date = today
         		st.session_state.streak += 1
         		st.rerun()
-	with col2:
-		if st.button("New day / reset chat"):
-			st.session_state.messages = []
-			st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
-		st.rerun()
+		with col2:
+			if st.button("New day / reset chat"):
+				st.session_state.messages = []
+				st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
+			st.rerun()
+
 
