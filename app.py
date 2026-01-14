@@ -5,7 +5,7 @@ from datetime import date
 st.title("Daily Health Tracker")
 st.caption("A health app designed to motivate, not shame you. No medical advice provided.")
 
-client = OpenAI(api_key = st.secrets["DEEPSEEK_API_KEY"], base_url = "https://api.deepseek.com")
+client = OpenAI(api_key = st.secrets["DEEPSEEK_API_KEY"], base_url = "https://api.deepseek.com/v1")
 
 if "openai_model" not in st.session_state:
 	st.session_state.openai_model = "deepseek-chat"
@@ -164,6 +164,7 @@ if prompt:
 			st.session_state.messages = []
 			st.session_state.today_log = {"steps": None,"water_oz": None,"calories": None,"active_minutes": None,"workout": None,"notes": None,"diary": None,}
 			st.rerun()
+
 
 
 
